@@ -1,103 +1,22 @@
-"use client";
+import { GithubIcon, LinkedinIcon } from "@/components/custom/brand-icons"
 
-import * as React from "react";
-
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-
-const projects: { title: string; href: string; description: string }[] = [
-  {
-    title: "Application de burreau",
-    href: "/projects/diwas",
-    description: "Un logiciel métier pour créer des raports d'expertise",
-  },
-];
-
-const experience: { title: string; href: string; description: string }[] = [
-  {
-    title: "Stage chez R2",
-    href: "/experience/r2",
-    description:
-      "Un stage au sein de l'entreprise R2 pour acquérir une expérience professionnelle.",
-  },
-];
+const navigation = [
+  { label: "Expérience", href: "#experience" },
+  { label: "Formation", href: "#formation" },
+  { label: "Projets", href: "#projects" },
+]
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-10">
-        <a
-          href="#top"
-          className="text-sm font-semibold tracking-[0.2em] text-foreground/90 uppercase"
-        >
-          RM
-        </a>
-
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Expérience</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-1 lg:w-[600px]">
-                  {experience.map((exp) => (
-                    <ListItem key={exp.title} title={exp.title} href={exp.href}>
-                      {exp.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem className="hidden md:flex">
-              <NavigationMenuTrigger>Projets</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-1 lg:w-[600px]">
-                  {projects.map((project) => (
-                    <ListItem
-                      key={project.title}
-                      title={project.title}
-                      href={project.href}
-                    >
-                      {project.description}
-                    </ListItem>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <a
-          href="#contact"
-          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Contact
-        </a>
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/65">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:px-10">
+        <span className="text-sm font-semibold">Raphaël Mabille</span>
+        <nav aria-label="Navigation principale" className="flex items-center gap-1 sm:gap-2">
+          {navigation.map((item) => <a key={item.href} href={item.href} className="hidden rounded-full px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:block">{item.label}</a>)}
+          <a href="https://github.com/Raphael-Mabille" target="_blank" rel="noreferrer" className="ml-1 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-sm font-medium transition-colors hover:border-primary/40 hover:text-primary" aria-label="Profil GitHub de Raphaël Mabille"><GithubIcon className="h-4 w-4" /><span className="hidden lg:inline">GitHub</span></a>
+          <a href="https://www.linkedin.com/in/raphael-mabille-674948315/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-2 text-sm font-medium transition-colors hover:border-primary/40 hover:text-primary" aria-label="Profil LinkedIn de Raphaël Mabille"><LinkedinIcon className="h-4 w-4" /><span className="hidden lg:inline">LinkedIn</span></a>
+        </nav>
       </div>
     </header>
-  );
-}
-
-function ListItem({
-  title,
-  children,
-  href,
-  ...props
-}: React.ComponentPropsWithoutRef<"li"> & { href: string }) {
-  return (
-    <li {...props}>
-      <NavigationMenuLink asChild>
-        <a href={href} target="_blank" rel="noopener noreferrer">
-          <div className="flex flex-col gap-1 text-sm">
-            <div className="leading-none font-medium">{title}</div>
-            <div className="line-clamp-2 text-muted-foreground">{children}</div>
-          </div>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
+  )
 }
